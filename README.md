@@ -59,4 +59,44 @@ price.smaller.10
 price.is.not.more.than.9
 ```
 
+## Usage
 
+Esker's central (and currently only exposed) method is `parse(<query-string>)`. To use Esker, first install it:
+
+```shell
+npm install esker --save
+```
+
+Import it as a module then use the `parse()` method on your query string.
+
+```javascript
+const esker = require('esker')
+
+let result = esker.parse('name.is.Amelia')
+```
+
+The `result` will contain an object containing an array of object (one for each sentence passed). 
+
+Each sentence is represented as an object with the properties `field`, `verb`, `not`, `value`. The above example (`'name.is.Amelia'`), results in:
+
+```json
+{
+    'field': 'name',
+    'verb': 'is',
+    'not': false,
+    'value': 'Amelia
+}
+```
+
+The `verb` field may contain one of the following values:
+
+- `'is'` - equality
+- `'has'` - partial equality, membership
+- `'>'` - greater than
+- `'<'` - less than
+
+The `not` field is set to true if the sentence contains the modifier `'not'`.
+
+## Logical Operators
+
+Not yet implemented

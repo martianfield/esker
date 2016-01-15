@@ -1,0 +1,1 @@
+module.exports.parse = require(__dirname + '/lib/parse.js').parse;
