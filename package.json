@@ -1,0 +1,22 @@
+{
+  "name": "esker",
+  "version": "0.1.0",
+  "description": "Fluent interface query strings",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/martianfield/esker.git"
+  },
+  "author": "Martin Imfeld <martin.imfeld@gmail.com> (http://martianfield.github.io/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/martianfield/esker/issues"
+  },
+  "homepage": "https://github.com/martianfield/esker#readme"
+}

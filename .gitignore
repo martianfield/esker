@@ -1,0 +1,8 @@
+# Dependency directory
+node_modules
+
+# OSX template
+.DS_Store
+
+# Jetbrains (WebStorm)
+.idea
