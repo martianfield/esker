@@ -18,5 +18,9 @@
   "bugs": {
     "url": "https://github.com/martianfield/esker/issues"
   },
-  "homepage": "https://github.com/martianfield/esker#readme"
+  "homepage": "https://github.com/martianfield/esker#readme",
+  "devDependencies": {
+    "chai": "^3.4.1",
+    "mocha": "^2.3.4"
+  }
 }
