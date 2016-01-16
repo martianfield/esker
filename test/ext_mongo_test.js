@@ -23,4 +23,21 @@ describe("Mongo Extension", () => {
     let result = parse('name.does.not.contain.ohn', ext)
     expect(result.output).to.deep.equal({"name":{"$regex":/^((?!ohn).)*$/i}})
   })
+
+  it("greater than (implicit numeric)", () => {
+    let result = parse('age.is.greater.than.12', ext)
+    expect(result.output).to.deep.equal({"age":{"$gt":12}})
+  })
+  it("not greater than (implicit numeric)", () => {
+    let result = parse('age.is.not.greater.than.12', ext)
+    expect(result.output).to.deep.equal({"age":{"$lt":12}})
+  })
+  it("less than (implicit numeric)", () => {
+    let result = parse('age.is.smaller.than.12', ext)
+    expect(result.output).to.deep.equal({"age":{"$lt":12}})
+  })
+  it("not less than (implicit numeric)", () => {
+    let result = parse('age.is.not.less.than.12', ext)
+    expect(result.output).to.deep.equal({"age":{"$gt":12}})
+  })
 })
