@@ -11,11 +11,14 @@ describe('Parse Sentence', () => {
     it('is (is, equals)', () => {
       expect(parseSentence('name.is.peter').verb).to.equal('is')
       expect(parseSentence('name.equals.peter').verb).to.equal('is')
+      expect(parseSentence('name.does.equal.peter').verb).to.equal('is')
     })
 
     it('has (contains)', () => {
       expect(parseSentence('name.contains.peter').verb).to.equal('has')
       expect(parseSentence('name.has.peter').verb).to.equal('has')
+      expect(parseSentence('name.does.contain.peter').verb).to.equal('has')
+      expect(parseSentence('name.does.have.peter').verb).to.equal('has')
     })
 
     it('greater than (>)', () => {
