@@ -21,6 +21,6 @@ describe("Mongo Extension", () => {
   })
   it("not contain (string", () => {
     let result = parse('name.does.not.contain.ohn', ext)
-    expect(result.output).to.deep.equal({"name":{"$regex":/!ohn/i}})
+    expect(result.output).to.deep.equal({"name":{"$regex":/^((?!ohn).)*$/i}})
   })
 })
