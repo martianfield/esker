@@ -59,7 +59,11 @@ describe("Mongo Extension", () => {
   describe("Logical Operators", () => {
     it("or", () => {
       let result = parse('age.is.20_or_age.is.30', ext)
-      expect(result.output).to.deep.equal({"$or": [{"age":20}, {"age":30}]})
+      expect(result.output).to.deep.equal({"$or": [{"age":{"$eq":20}}, {"age":{"$eq":30}}]})
+    })
+    it("and", () => {
+      let result = parse('age.is.20_and_age.is.30', ext)
+      expect(result.output).to.deep.equal({"$and": [{"age":{"$eq":20}}, {"age":{"$eq":30}}]})
     })
   })
 
