@@ -77,14 +77,16 @@ let result = esker.parse('name.is.Amelia')
 
 The `result` will contain an object containing an array of object (one for each sentence passed). 
 
-Each sentence is represented as an object with the properties `field`, `verb`, `not`, `value`. The above example (`'name.is.Amelia'`), results in:
+Each sentence is represented as an object with the properties `field`, `verb`, `not`, `value`, `operatorLeft`, `operatorRight`. The above example (`'name.is.Amelia'`), results in:
 
 ```json
 {
     'field': 'name',
     'verb': 'is',
     'not': false,
-    'value': 'Amelia
+    'value': 'Amelia,
+    'operatorLeft': 'none',
+    'operatorRight': 'none'
 }
 ```
 
@@ -97,6 +99,43 @@ The `verb` field may contain one of the following values:
 
 The `not` field is set to true if the sentence contains the modifier `'not'`.
 
+The `operatorLeft` and `operatorRight` express and sentence's relation to its neighbours (see Logical Operators). It may contain one of the following values:
+
+- `'none'`
+- `'and'`
+- `'or'`
+
+
+
 ## Logical Operators
 
-Not yet implemented
+Sentences can be combined using the `'_and_'` and `'_or_'` operators. Here an example:
+
+```javascript
+color.is.blue_and_price.is.10_or_color.is.red
+```
+
+Note that Esker currently does not support defining any operator precedence by means of brackets.
+Logical operators are simply added to the result's `sentences` items as `operatorLeft` and `operatorRight` properties.
+
+How these operators are interpreted depends on the extension used (see section on Extensions)
+
+
+## Extensions
+
+The `parse()` method takes a second (optional) attribute, an extension method. This can be any method take takes and array of sentences and returns an object.
+
+The returned object is then added to the result as the value of the `output` property.
+
+Currently Esker comes with a MongoDB extension. Here is how you use it:
+
+```javascript
+const esker = require('esker')
+
+let query = 'color.is.blue_and_price.is.10_or_color.is.red'
+
+let result = esker.parse(query, esker.mongo)
+
+// result.output contains an object that you now can use as the filter in a MongoDB find() call
+let filter = result.output
+```
