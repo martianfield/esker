@@ -57,13 +57,63 @@ describe("Mongo Extension", () => {
   })
 
   describe("Logical Operators", () => {
-    it("or", () => {
+    it("x or y", () => {
       let result = parse('age.is.20_or_age.is.30', ext)
       expect(result.output).to.deep.equal({"$or": [{"age":{"$eq":20}}, {"age":{"$eq":30}}]})
     })
-    it("and", () => {
+    it("x or y or z", () => {
+      let result = parse('age.is.20_or_age.is.21_or_age.is_22', ext)
+      let expected = {
+        "$or": [
+          {"age":20},
+          {"age":21},
+          {"age":22}
+        ]
+      }
+    })
+    it("x and y", () => {
       let result = parse('age.is.20_and_age.is.30', ext)
       expect(result.output).to.deep.equal({"$and": [{"age":{"$eq":20}}, {"age":{"$eq":30}}]})
+    })
+    it("x and y and z", () => {
+      let result = parse('age.is.20_and_age.is.21_and_age.is_22', ext)
+      let expected = {
+        "$and": [
+          {"age":20},
+          {"age":21},
+          {"age":22}
+        ]
+      }
+    })
+    it("x_and_y_or_z", () => {
+      let result = parse('color.is.blue_and_age.is.13_or_age.is.14', ext)
+      let expected = {
+        "$or":[
+          {"$and":[
+            {"color":{"$eq":"blue"}},
+            {"age":{"$eq":13}}
+          ]},
+          {"$and":[
+            {"age":{"$eq":14}}
+          ]}
+        ]
+      }
+      expect(result.output).to.deep.equal(expected)
+    })
+    it("x_or_y_and_z", () => {
+      let result = parse('age.is.14_or_color.is.blue_and_age.is.13', ext)
+      let expected = {
+        "$or":[
+          {"$and":[
+            {"age":{"$eq":14}}
+          ]},
+          {"$and":[
+            {"color":{"$eq":"blue"}},
+            {"age":{"$eq":13}}
+          ]}
+        ]
+      }
+      expect(result.output).to.deep.equal(expected)
     })
   })
 
